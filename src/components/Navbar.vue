@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="container">
       <router-link to="/" class="logo">
-        <img :src="'../src/assets/logo.png'" alt="Logo" />
+        <img src="/logo.png" alt="Logo" />
       </router-link>
       <div class="nav-right">
         <div class="user-menu" ref="userMenu">
