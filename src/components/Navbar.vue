@@ -134,10 +134,15 @@ onUnmounted(() => {
   padding: 1rem;
   text-decoration: none;
 }
+.nav-links a:hover{
+  padding-bottom: 5px;
+  scale: 1.5;
+  transition: all .2s ease-in-out;
+}
 .nav-links a.router-link-exact-active{
-  color:#ffffff;
-  background: #5ea164;
-  border-radius: 10px;
+  border-bottom: #49754D solid 2px;
+  border-radius: 10px 0 0;
+  padding-bottom: 5px;
 }
 .user-menu {
   position: relative;
@@ -210,22 +215,22 @@ onUnmounted(() => {
     top: 60px;
     left: 0;
     width: 100%;
-    background-color: #feeabc;
+    align-items: center;
+    text-align: center;
+    background-color: #feeabce5;
     padding: 1rem 0;
   }
 
   .nav-links.open {
     display: flex;
-    width: fit-content;
+    width: 100%;
   }
   .nav-links li {
     margin: 0.5rem 0;
-    width: fit-content;
+    width: 100%;
+
   }
   .nav-links li a.router-link-exact-active{
-  color:#ffffff;
-  background: #5ea164;
-  width: max-content;
   margin: 0%;
 }
   .menu-icon {

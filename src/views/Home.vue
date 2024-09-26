@@ -2,31 +2,39 @@
   <div class="home">
     <section class="hero">
       <div class="container">
-        <h1>Discover Delicious Recipes</h1>
-        <p>Find your next favorite meal....</p>
+        <transition appear name="fade-in-down">
+          <h1>Discover Delicious Recipes</h1>
+        </transition>
+        <transition appear name="fade-in-up">
+          <p>Find your next favorite meal....</p>
+        </transition>
         <div class="search-container">
-          <SearchBar
-            v-model="searchQuery"
-            @search="searchRecipes"
-          />
-          <div class="filters">
-            <select v-model="selectedCategory" @change="searchRecipes">
-              <option value="">All Categories</option>
-              <option v-for="category in categories" :key="category" :value="category">
-                {{ category }}
-              </option>
-            </select>
-            <select v-model="selectedArea" @change="searchRecipes">
-              <option value="">All Areas</option>
-              <option v-for="area in areas" :key="area" :value="area">
-                {{ area }}
-              </option>
-            </select>
-          </div>
+          <transition appear name="fade-in-left">
+            <SearchBar
+              v-model="searchQuery"
+              @search="searchRecipes"
+            />
+          </transition>
+          <transition appear name="fade-in-right">
+            <div class="filters">
+              <select v-model="selectedCategory" @change="searchRecipes">
+                <option value="">All Categories</option>
+                <option v-for="category in categories" :key="category" :value="category">
+                  {{ category }}
+                </option>
+              </select>
+              <select v-model="selectedArea" @change="searchRecipes">
+                <option value="">All Areas</option>
+                <option v-for="area in areas" :key="area" :value="area">
+                  {{ area }}
+                </option>
+              </select>
+            </div>
+          </transition>
         </div>
       </div>
     </section>
-    <section class="recipes-section">
+    <section class="recipes-section slide-in-right">
       <div class="container">
         <h2>{{ searchQuery ? 'Search Results' : 'Popular Recipes' }}</h2>
         <div v-if="isLoading && !displayedRecipes.length">
@@ -36,9 +44,9 @@
         <div v-else-if="displayedRecipes.length === 0" class="no-results">
           <p>{{ searchQuery ? 'No recipes found. Try a different search term or filters.' : 'No popular recipes available at the moment. Please try again later.' }}</p>
         </div>
-        <div v-else class="results-grid">
+        <transition-group name="recipe-list" tag="div" class="results-grid">
           <RecipeCard v-for="recipe in displayedRecipes" :key="recipe.idMeal" :recipe="recipe" />
-        </div>
+        </transition-group>
         <div v-if="isLoading && displayedRecipes.length" class="loading-more">
           <LoadingSpinner />
         </div>
@@ -139,6 +147,24 @@ watch([searchQuery, selectedCategory, selectedArea], () => {
   align-items: center;
   text-align: center;
   color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1s ease-out;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .hero h1 {
@@ -177,6 +203,11 @@ select {
   font-size: 1rem;
   border: none;
   border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+select:hover {
+  background-color: #f0f0f0;
 }
 
 .recipes-section {
@@ -202,21 +233,6 @@ h2 {
   margin-top: 2rem;
 }
 
-@media (width < 1188px) {
-  .hero p {
-    color: hsl(0, 0%, 100%);
-    font-weight: bolder;
-    -webkit-text-stroke: 1px hsl(117, 46%, 19%);
-    font-size: 40pt;
-  }
-}
-.no-results, .error-message {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #666;
-  margin-top: 2rem;
-}
-
 .loading-more {
   text-align: center;
   margin-top: 2rem;
@@ -227,6 +243,78 @@ h2 {
   margin-top: 2rem;
 }
 
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInFromBottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in-down-enter-active, .fade-in-down-leave-active,
+.fade-in-up-enter-active, .fade-in-up-leave-active,
+.fade-in-left-enter-active, .fade-in-left-leave-active,
+.fade-in-right-enter-active, .fade-in-right-leave-active {
+  transition: all 0.5s ease-out;
+}
+
+.fade-in-down-enter-from, .fade-in-down-leave-to {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+.fade-in-up-enter-from, .fade-in-up-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.fade-in-left-enter-from, .fade-in-left-leave-to {
+  transform: translateX(-20px);
+  opacity: 0;
+}
+
+.fade-in-right-enter-from, .fade-in-right-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+.recipe-list-enter-active,
+.recipe-list-leave-active {
+  transition: all 0.5s ease;
+}
+
+.recipe-list-enter-from,
+.recipe-list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@media (width < 1188px) {
+  .hero p {
+    color: hsl(0, 0%, 100%);
+    font-weight: bolder;
+    -webkit-text-stroke: 1px hsl(117, 46%, 19%);
+    font-size: 40pt;
+  }
+}
 
 @media (max-width: 768px) {
   .hero h1 {
@@ -234,7 +322,7 @@ h2 {
   }
 
   .hero p {
-    font-size: 1rem;
+    font-size: 20pt;
     color: #ffffff;
     -webkit-text-stroke: #25251d 0.1px;
     font-weight: 800;
@@ -255,18 +343,7 @@ h2 {
   }
 
   .results-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
-.about-enter-from,
-  .about-leave-to
-  {
-    transform: translateX(-600px);
-    opacity: 0;
-    scale: .5;
-  }
-  .about-enter-active{
-    transition: all .3s ease-in-out;
-  }
-
 </style>

@@ -30,7 +30,6 @@
    </form>
       <ul v-if="showResults" class="results-list">
         <li v-if="suggestions.length > 0">
-          <strong>Suggestions:</strong>
           <ul>
             <li
               v-for="(suggestion, index) in suggestions"
@@ -43,7 +42,6 @@
           </ul>
         </li>
         <li v-if="searchResults.length > 0">
-          <strong>Search Results:</strong>
           <ul>
             <li
               v-for="(result, index) in searchResults"
@@ -237,7 +235,8 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: white;
+    background-color: rgba(248, 224, 224, 0.911);
+    color: black;
     border: 1px solid #ccc;
     border-top: none;
     list-style-type: none;
@@ -246,6 +245,7 @@
     max-height: 300px;
     overflow-y: auto;
     z-index: 1000;
+    width: 80%;
   }
   
   .results-list > li {

@@ -28,15 +28,19 @@ defineProps({
   font-family: 'head';
   src: url(/rcp/src/assets/fonnts.com-Owners_Medium.otf);
 }
-
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 .recipe-card {
-  background-color: #FFF8E8;
+  background: linear-gradient(90deg, rgba(19,226,185,1) 0%, rgba(147,223,173,0.9204133064516129) 16%, rgba(248,255,174,1) 100%);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border-radius: 20px 20px 10px 10px;
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .recipe-card img {
