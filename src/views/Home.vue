@@ -145,6 +145,9 @@ watch([searchQuery, selectedCategory, selectedArea], () => {
   height: 60vh;
   display: flex;
   align-items: center;
+  margin: auto;
+  padding: auto;
+  justify-content: center;
   text-align: center;
   color: #ffffff;
   position: relative;
@@ -322,8 +325,8 @@ h2 {
   }
 
   .hero p {
-    font-size: 20pt;
-    color: #ffffff;
+    font-size: 15pt;
+    color:;  color: rgb(222, 236, 171);
     -webkit-text-stroke: #25251d 0.1px;
     font-weight: 800;
   }

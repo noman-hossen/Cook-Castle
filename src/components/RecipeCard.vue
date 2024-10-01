@@ -1,26 +1,24 @@
 <template>
   <transition appear name="card" mode="out-in">
-    <div class="recipe-card" >
-    <img :src="recipe.strMealThumb" :alt="recipe.strMeal" />
-    <div class="recipe-content">
-      <h3 :title="recipe.strMeal">{{ recipe.strMeal }}</h3>
-      <hr>
-      <p :title="'Category: ' + recipe.strCategory">Category: {{ recipe.strCategory }}</p>
-      <router-link :to="'/recipe/' + recipe.idMeal" class="btn">View Recipe</router-link>
+    <div class="recipe-card">
+      <img :src="recipe.strMealThumb" :alt="recipe.strMeal" />
+      <div class="recipe-content">
+        <h3 :title="recipe.strMeal">{{ recipe.strMeal }}</h3>
+        <hr>
+        <p :title="'Category: ' + recipe.strCategory">Category: {{ recipe.strCategory }}</p>
+        <router-link :to="'/recipe/' + recipe.idMeal" class="btn">View Recipe</router-link>
+      </div>
     </div>
-  </div>
   </transition>
 </template>
 
 <script setup>
-
 defineProps({
   recipe: {
     type: Object,
     required: true,
   }
 });
-
 </script>
 
 <style scoped>
@@ -28,10 +26,12 @@ defineProps({
   font-family: 'head';
   src: url(/rcp/src/assets/fonnts.com-Owners_Medium.otf);
 }
+
 .recipe-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
+
 .recipe-card {
   background: linear-gradient(90deg, rgba(19,226,185,1) 0%, rgba(147,223,173,0.9204133064516129) 16%, rgba(248,255,174,1) 100%);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -54,6 +54,9 @@ defineProps({
   flex-direction: column;
   flex-grow: 1;
   padding: 1rem;
+  justify-content: space-between; /* This will space out the content vertically */
+  align-items: center; /* This will center items horizontally */
+  text-align: center; /* This will center text within each element */
 }
 
 .recipe-card h3 {
@@ -65,6 +68,7 @@ defineProps({
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  width: 100%; /* Ensure full width */
 }
 
 hr {
@@ -81,6 +85,7 @@ hr {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  width: 100%; /* Ensure full width */
 }
 
 .recipe-card .btn {
@@ -88,14 +93,12 @@ hr {
   text-align: center;
   background-color: #E8B86D;
   color: #fff;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   text-decoration: none;
   transition: all .2s ease;
-  border-radius:5px ;
-  width: 100%;
-  margin-top: auto;
-  align-content: end;
-
+  border-radius: 5px;
+  width: 90%;
+  margin-top: auto; /* Push button to the bottom */
 }
 
 .recipe-card .btn:hover {
@@ -104,13 +107,13 @@ hr {
 
 /* card-animation */
 .card-enter-from,
-.card-leave-to{
+.card-leave-to {
   scale: 0%;
   opacity: 0;
-  -webkit-transform-origin-y:0;
+  transform-origin: center center;
 }
 
-.card-enter-active{
+.card-enter-active {
   transition: all .3s ease-in-out;
 }
 </style>
